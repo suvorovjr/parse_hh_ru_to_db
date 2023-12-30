@@ -168,3 +168,30 @@ class DBManager:
             cursor.execute(query)
             count_vacancies = cursor.fetchall()
             return count_vacancies
+
+    def get_vacancies_with_higher_salary(self):
+        """
+        Получает список вакансий с зарплатой выше средней
+        :return: Список кортежей с вакансиями у которых зарплата выше средней.
+        """
+        with self.get_connection() as connection, connection.cursor() as cursor:
+            query = """SELECT *
+                        FROM vacancies v
+                        JOIN employers e ON v.employer_id = e.employer_id
+                        WHERE v.salary_from > (
+                        SELECT AVG(salary_from) FROM vacancies
+                        );"""
+            cursor.execute(query)
+            vacancies_with_higher_salary = cursor.fetchall()
+            return vacancies_with_higher_salary
+
+    def get_avg_salary(self):
+        """
+        Получает среднюю зарплату по всем вакансиям
+        :return: Средняя зарплата типа int по всем вакансиям округленная до целого числа
+        """
+        with self.get_connection() as connection, connection.cursor() as cursor:
+            query = "SELECT AVG(salary_from) FROM vacancies;"
+            cursor.execute(query)
+            avg_salary = cursor.fetchone()[0]
+            return int(avg_salary)

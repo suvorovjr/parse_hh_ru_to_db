@@ -6,10 +6,10 @@ from src.vacancy import Vacancy
 from src.employer import Employer
 from src.utils import get_vacancy_params, get_employer_params, get_unique_employers, get_unique_vacancies
 
-DB_HOST = 'localhost'
-DB_NAME = 'vacancies'
-DB_USER = 'postgres'
-DB_PASSWORD = os.getenv("DATABASE_PASSWORD")
+DB_HOST = os.getenv("DB_HOST")
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
 
 
 def main():
@@ -68,6 +68,12 @@ def main():
             db_vacancies = db_manager.get_all_vacancies()
             [print(Vacancy(vacancy)) for vacancy in db_vacancies]
         elif user_input == "6":
+            avg_salary = db_manager.get_avg_salary()
+            print(f'Средняя зарплата = {avg_salary}')
+        elif user_input == "7":
+            vacancies_with_higher_salary = db_manager.get_vacancies_with_higher_salary()
+            [print(Vacancy(vacancy)) for vacancy in vacancies_with_higher_salary]
+        elif user_input == "8":
             break
 
 

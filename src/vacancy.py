@@ -19,7 +19,7 @@ class Vacancy:
 
     def __str__(self):
         return f"Вакансия: {self.vacancy_name}. Зарплата от {self.salary_from} до {self.salary_to} {self.currency}. " \
-               f"В городе {self.vacancy_area}."
+               f"Компания: {self.employer_id}. "
 
     def __repr__(self):
         return f"Vacancy(vacancy_id={self.vacancy_id}, vacancy_name={self.vacancy_name}, salary_from={self.salary_from}," \
