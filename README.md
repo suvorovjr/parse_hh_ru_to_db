@@ -12,7 +12,7 @@
 
 ## Установка 
 
-1. Клонируйте репрозиторий
+1. Клонируйте репрозиторий из GitHab
 ```bash 
 https://github.com/suvorovjr/course_work_5
 ```
