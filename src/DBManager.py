@@ -174,6 +174,7 @@ class DBManager:
         Получает список вакансий с зарплатой выше средней
         :return: Список кортежей с вакансиями у которых зарплата выше средней.
         """
+
         with self.get_connection() as connection, connection.cursor() as cursor:
             query = """SELECT *
                         FROM vacancies v
@@ -190,8 +191,22 @@ class DBManager:
         Получает среднюю зарплату по всем вакансиям
         :return: Средняя зарплата типа int по всем вакансиям округленная до целого числа
         """
+
         with self.get_connection() as connection, connection.cursor() as cursor:
             query = "SELECT AVG(salary_from) FROM vacancies;"
             cursor.execute(query)
             avg_salary = cursor.fetchone()[0]
             return int(avg_salary)
+
+    def get_vacancies_with_keyword(self, keyword):
+        """
+        Получает список вакансий в которых присутсвует ключевое слово
+        :param keyword: Ключевое слово для поиска
+        :return: Список кортежей с вакансиями по ключевому слову
+        """
+
+        with self.get_connection() as connection, connection.cursor() as cursor:
+            query = f"SELECT * FROM vacancies WHERE LOWER(vacancy_name) LIKE LOWER('%{keyword}%')"
+            cursor.execute(query)
+            vacancies_with_keyword = cursor.fetchall()
+            return vacancies_with_keyword

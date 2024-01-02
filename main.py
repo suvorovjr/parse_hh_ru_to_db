@@ -74,6 +74,10 @@ def main():
             vacancies_with_higher_salary = db_manager.get_vacancies_with_higher_salary()
             [print(Vacancy(vacancy)) for vacancy in vacancies_with_higher_salary]
         elif user_input == "8":
+            keyword_for_search = input('Введите ключевое слово для поиска вакансий\n')
+            vacancies_with_keyword = db_manager.get_vacancies_with_keyword(keyword_for_search)
+            [print(Vacancy(vacancy)) for vacancy in vacancies_with_keyword]
+        elif user_input == "9":
             break
 
 
